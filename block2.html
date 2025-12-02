@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Mining & Machine Learning: Probability & Bayesian Learning - Exam Revision (Detailed)</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Data Mining & Machine Learning: Probability & Bayesian Learning</h1>
+<div class="top-actions">
+        <a class="home-btn" href="index.html" aria-label="Go to home">Home</a>
+    </div>
+    <h2>I. Core Concepts of Probability Theory</h2>
+    <h3>1.1 Probabilistic Assertions and Sample Space</h3>
+    <ul>
+        <li>
+            <strong>Probabilistic assertions</strong> are statements about <strong>possible worlds</strong>—different ways the world could be, each with an associated probability.
+        </li>
+        <li>
+            The set of all possible worlds is called the <strong>sample space</strong> (&Omega;). 
+            <br>
+            <em>Example:</em> Rolling two dice: 
+            <ul>
+                <li>&Omega; = { (1,1), (1,2), ..., (6,6) } (36 possible worlds)</li>
+                <li>Each outcome is mutually exclusive and exhaustive.</li>
+            </ul>
+        </li>
+        <li>
+            A <strong>probability model/measure</strong> (P(&omega;)) assigns a probability to each possible world.
+            <ul>
+                <li>0 &le; P(&omega;) &le; 1</li>
+                <li>&sum; P(&omega;) = 1</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Probability of a proposition:</strong> The probability of an event (e.g., "total = 11") is the sum of the probabilities of the worlds in which it holds.
+            <br>
+            <em>Example:</em> P(Total = 11) when rolling two dice:
+            <ul>
+                <li>Worlds: (5,6) and (6,5)</li>
+                <li>P(Total = 11) = 1/36 + 1/36 = 2/36 = 1/18</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>1.2 Unconditional and Conditional Probability</h3>
+    <ul>
+        <li>
+            <strong>Unconditional Probability (P(a)):</strong> Degree of belief in proposition <em>a</em> without any other information.
+            <br>
+            <em>Example:</em> Probability of rolling doubles with two dice: P(Doubles) = 6/36 = 1/6.
+        </li>
+        <li>
+            <strong>Conditional Probability (P(a|b)):</strong> Probability of <em>a</em> given <em>b</em> (the evidence).
+            <ul>
+                <li><strong>Formula:</strong> P(a|b) = P(a &and; b) / P(b), provided P(b) &gt; 0</li>
+                <li>
+                    <em>Example:</em> First die shows 5, probability of doubles:
+                    <ul>
+                        <li>P(Doubles &and; Die1=5) = 1/36 (only (5,5))</li>
+                        <li>P(Die1=5) = 1/6</li>
+                        <li>P(Doubles|Die1=5) = (1/36) / (1/6) = 1/6</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <strong>Other Rules:</strong>
+            <ul>
+                <li>P(&not;a) = 1 - P(a)</li>
+                <li>P(a &or; b) = P(a) + P(b) - P(a &and; b)</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Independence (Product Rule):</strong>
+            <ul>
+                <li>P(a &and; b) = P(a)P(b) if a and b are independent</li>
+                <li>P(a|b) = P(a) if a and b are independent</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>II. Bayes’ Rule and Bayesian Learning</h2>
+    <h3>2.1 Bayes’ Rule Components</h3>
+    <p>
+        <strong>Bayes' rule</strong> is central to modern AI and is derived from the symmetry of joint probability: P(a &and; b) = P(b &and; a).
+    </p>
+    <p style="text-align:center;">
+        <strong>P(a|b) = [P(b|a) × P(a)] / P(b)</strong>
+    </p>
+    <table border="1" cellpadding="4">
+        <tr>
+            <th>Term</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>P(a|b)</td>
+            <td><strong>Posterior</strong> Probability</td>
+            <td>Updated belief in <em>a</em> after observing <em>b</em></td>
+        </tr>
+        <tr>
+            <td>P(b|a)</td>
+            <td><strong>Likelihood</strong></td>
+            <td>Probability of observing <em>b</em> given <em>a</em></td>
+        </tr>
+        <tr>
+            <td>P(a)</td>
+            <td><strong>Prior</strong> Probability</td>
+            <td>Initial belief in <em>a</em> before observing <em>b</em></td>
+        </tr>
+        <tr>
+            <td>P(b)</td>
+            <td><strong>Evidence</strong></td>
+            <td>Probability of observing <em>b</em></td>
+        </tr>
+    </table>
+    <ul>
+        <li>
+            <strong>Bayesian Learning:</strong> Bayes' rule allows us to infer <em>causes</em> from <em>effects</em> (diagnostic reasoning), updating our beliefs as new evidence arrives.
+        </li>
+        <li>
+            <strong>Learning = Revising Beliefs:</strong> Prior knowledge is revised after observing evidence, producing a posterior probability.
+        </li>
+    </ul>
+
+    <h2>III. Worked Examples & Applications</h2>
+    <h3>3.1 Medical Diagnostics (Diagnostic Reasoning)</h3>
+    <ul>
+        <li>
+            <strong>Doctors</strong> often know P(symptom|disease) from experience. Bayes' rule lets them compute P(disease|symptom).
+        </li>
+        <li>
+            <strong>Example: Meningitis and Stiff Neck</strong>
+            <ul>
+                <li>P(meningitis) = 1/50000 = 0.00002 (Prior)</li>
+                <li>P(stiff neck|meningitis) = 0.7 (Likelihood)</li>
+                <li>P(stiff neck) = 0.01 (Evidence)</li>
+                <li>
+                    <strong>Calculation:</strong>
+                    <br>
+                    P(meningitis|stiff neck) = (0.7 × 0.00002) / 0.01 = 0.0014
+                </li>
+                <li>
+                    <strong>Interpretation:</strong> The probability of meningitis increases from 0.00002 to 0.0014 after observing a stiff neck.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>3.2 E-Commerce and Targeted Advertising</h3>
+    <ul>
+        <li>
+            <strong>Bayesian learning</strong> is used to update beliefs about a customer's likelihood of purchase based on their actions.
+        </li>
+        <li>
+            <strong>Example: Customer Transactions</strong>
+            <ul>
+                <li>P(Buys) = 0.4 (Prior)</li>
+                <li>Customer browses "Music streaming" (Evidence)</li>
+                <li>
+                    <strong>Step-by-step:</strong>
+                    <ul>
+                        <li>Of 10 customers, 4 bought (P(A) = 0.4)</li>
+                        <li>Of those 4, 2 browsed music streaming (P(B|A) = 0.5)</li>
+                        <li>6 of 10 browsed music streaming (P(B) = 0.6)</li>
+                        <li>
+                            <strong>Bayes' Theorem:</strong>
+                            <br>
+                            P(A|B) = (P(B|A) × P(A)) / P(B) = (0.5 × 0.4) / 0.6 = 0.33
+                        </li>
+                        <li>
+                            <strong>Interpretation:</strong> Observing "music streaming" reduces the probability of buying from 0.4 to 0.33.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>3.3 Computer Vision and Emotion Recognition</h3>
+    <ul>
+        <li>
+            <strong>Bayesian methods</strong> are used to infer emotions from images based on labelled data.
+        </li>
+        <li>
+            <strong>Example: Grid Face Emotions</strong>
+            <ul>
+                <li>Prior: P(Happy) = 0.6</li>
+                <li>Likelihood: P(Cell 42 = White | Happy) = 0.33</li>
+                <li>Evidence: P(Cell 42 = White) = 0.6</li>
+                <li>
+                    <strong>Bayes' Theorem:</strong>
+                    <br>
+                    P(Happy | Cell 42 = White) = (0.33 × 0.6) / 0.6 = 0.33
+                </li>
+                <li>
+                    <strong>Interpretation:</strong> Observing Cell 42 is white decreases belief in "happy" from 0.6 to 0.33.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>IV. Key Probability Rules and Concepts</h2>
+    <ul>
+        <li>
+            <strong>Negation:</strong> P(&not;a) = 1 - P(a)
+        </li>
+        <li>
+            <strong>Union:</strong> P(a &or; b) = P(a) + P(b) - P(a &and; b)
+        </li>
+        <li>
+            <strong>Product Rule (Independence):</strong> P(a &and; b) = P(a)P(b) if a and b are independent
+        </li>
+        <li>
+            <strong>Conditional Probability:</strong> P(a|b) = P(a &and; b) / P(b)
+        </li>
+        <li>
+            <strong>Bayes’ Rule:</strong> P(a|b) = [P(b|a) × P(a)] / P(b)
+        </li>
+    </ul>
+
+    <h2>V. Bayesian Networks (Belief Networks)</h2>
+    <ul>
+        <li>
+            <strong>Bayesian Networks</strong> are graphical models representing dependencies between variables.
+        </li>
+        <li>
+            <strong>Nodes:</strong> Random variables (e.g., Fire, Alarm, Smoke)
+        </li>
+        <li>
+            <strong>Edges:</strong> Direct influences (e.g., Fire → Alarm)
+        </li>
+        <li>
+            <strong>Conditional Probability Tables (CPTs):</strong> Specify P(Node | Parents)
+        </li>
+        <li>
+            <strong>Key property:</strong> Each node is independent of its non-descendants given its parents.
+        </li>
+        <li>
+            <strong>Example:</strong> In a fire alarm network, P(Smoke|Fire) is specified, not P(Smoke|Fire, Tampering, Alarm, ...).
+        </li>
+        <li>
+            <strong>Naive Bayes:</strong> Special case where all features are independent given the class.
+        </li>
+    </ul>
+
+    <h2>VI. Revision Strategy</h2>
+    <ol>
+        <li><strong>Revise the Lectures:</strong> Review formulas for unconditional, conditional, and Bayesian probabilities.</li>
+        <li><strong>Solve Lab Exercises:</strong> Practice calculations with different data.</li>
+        <li><strong>Use Online Tests:</strong> Complete Test 2.5.1 and 2.5.2 on Canvas. Review feedback and note how questions are formulated.</li>
+    </ol>
+    <p>
+        <strong>Note:</strong> The exam is closed book. You must know the basic probability formulas and how to apply them.
+    </p>
+    <ul>
+        <li>
+            The course also covers <strong>Bayesian networks</strong>: architecture, count tables, conditional probabilities, and likelihood factors.
+        </li>
+    </ul>
+
+    <h3>Exam Focus</h3>
+    <p>
+        Questions Q17-22 (Block 2) will focus on calculations involving unconditional, conditional, and Bayesian probabilities.
+    </p>
+
+    <h2>VII. Quick Reference Table</h2>
+    <table border="1" cellpadding="4">
+        <tr>
+            <th>Concept</th>
+            <th>Formula</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>Unconditional Probability</td>
+            <td>P(a)</td>
+            <td>P(Doubles) = 1/6</td>
+        </tr>
+        <tr>
+            <td>Conditional Probability</td>
+            <td>P(a|b) = P(a &and; b) / P(b)</td>
+            <td>P(Doubles|Die1=5) = (1/36) / (1/6) = 1/6</td>
+        </tr>
+        <tr>
+            <td>Negation</td>
+            <td>P(&not;a) = 1 - P(a)</td>
+            <td>P(Not Doubles) = 1 - 1/6 = 5/6</td>
+        </tr>
+        <tr>
+            <td>Union</td>
+            <td>P(a &or; b) = P(a) + P(b) - P(a &and; b)</td>
+            <td>P(Die1=5 or Die2=5) = 1/6 + 1/6 - 1/36</td>
+        </tr>
+        <tr>
+            <td>Bayes’ Rule</td>
+            <td>P(a|b) = [P(b|a) × P(a)] / P(b)</td>
+            <td>P(Meningitis|Stiff Neck) = (0.7 × 0.00002) / 0.01</td>
+        </tr>
+    </table>
+</body>
+</html>
