@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Mining and Machine Learning - Exam Revision</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Data Mining and Machine Learning - Exam Revision</h1>
+    <div class="top-actions">
+        <a class="home-btn" href="index.html" aria-label="Go to home">Home</a>
+    </div>
+    <h2>1. Data Handling, Preparation, and Evaluation</h2>
+    <h3>1.1 Data Normalisation and Scaling</h3>
+    <ul>
+        <li>
+            <strong>Min-Max Normalisation:</strong>
+            <br>
+            <code>scaled = (v(r, j) - min(j)) / (max(j) - min(j))</code>
+            <br>
+            <em>Example:</em> Height: min=1502, max=1904, value=1856<br>
+            <code>(1856 - 1502) / (1904 - 1502) = 354 / 402 ≈ 0.88</code>
+        </li>
+        <li>
+            <strong>Standardisation (z-score):</strong>
+            <br>
+            <code>z = (x - μ) / σ</code>
+        </li>
+    </ul>
+
+    <h3>1.2 Performance Measures (Confusion Matrix)</h3>
+    <ul>
+        <li>
+            <strong>Accuracy:</strong>
+            <br>
+            <code>(TP + TN) / (TP + TN + FP + FN)</code>
+        </li>
+        <li>
+            <strong>Error Rate:</strong>
+            <br>
+            <code>(FP + FN) / (TP + TN + FP + FN)</code> or <code>1 - Accuracy</code>
+        </li>
+        <li>
+            <strong>Recall (Sensitivity):</strong>
+            <br>
+            <code>TP / (TP + FN)</code>
+            <br>
+            <em>Example:</em> TP=1, FN=99 → <code>1 / (1 + 99) = 0.01</code>
+        </li>
+        <li>
+            <strong>Precision:</strong>
+            <br>
+            <code>TP / (TP + FP)</code>
+            <br>
+            <em>Example:</em> TP=1, FP=0 → <code>1 / (1 + 0) = 1</code>
+        </li>
+        <li>
+            <strong>F-measure:</strong>
+            <br>
+            <code>2 * (recall * precision) / (recall + precision)</code>
+        </li>
+    </ul>
+
+    <h2>2. Probabilities and Bayesian Learning</h2>
+    <ul>
+        <li>
+            <strong>Conditional Probability:</strong>
+            <br>
+            <code>P(a|b) = P(a ∧ b) / P(b)</code>
+        </li>
+        <li>
+            <strong>Bayes’ Rule:</strong>
+            <br>
+            <code>P(a|b) = (P(b|a) * P(a)) / P(b)</code>
+            <br>
+            <em>Example:</em>
+            <ul>
+                <li>P(A) = 0.4</li>
+                <li>P(B|A) = 0.5</li>
+                <li>P(B) = 0.6</li>
+                <li>P(A|B) = (0.5 * 0.4) / 0.6 ≈ 0.33</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>3. Unsupervised Learning (K-Means)</h2>
+    <ul>
+        <li>
+            <strong>Euclidean Distance:</strong>
+            <br>
+            <code>d(a, b) = sqrt(Σ (a_d - b_d)^2)</code>
+        </li>
+        <li>
+            <strong>K-Means Cost Function:</strong>
+            <br>
+            <code>L(z, μ, D) = Σₙ Σₖ z_nk |x_n - μ_k|^2</code>
+        </li>
+        <li>
+            <strong>M-step (Centroid Update):</strong>
+            <br>
+            <code>μ_k = (Σₙ z_nk x_n) / (Σₙ z_nk)</code>
+            <br>
+            <em>Example:</em> Feature values: 0.7, 2.4, 3, 4.5, 5.2, 5.3, 6.2, 9.5<br>
+            <code>μ = (0.7 + 2.4 + 3 + 4.5 + 5.2 + 5.3 + 6.2 + 9.5) / 8 = 4.6</code>
+        </li>
+        <li>
+            <strong>E-step (Assignment):</strong>
+            <br>
+            <code>z_n ← argmin_k |μ_k - x_n|</code>
+            <br>
+            <em>Example:</em> Compare squared distances to centroids, assign to closest.
+        </li>
+    </ul>
+
+    <h2>4. Supervised Learning</h2>
+    <h3>4.1 Perceptron</h3>
+    <ul>
+        <li>
+            <strong>Activation:</strong>
+            <br>
+            <code>a = Σ w_d x_d + b</code>
+        </li>
+        <li>
+            <strong>Prediction:</strong>
+            <br>
+            <code>ŷ = sign(wᵗx + b)</code>
+        </li>
+        <li>
+            <strong>Update Rule:</strong>
+            <br>
+            <code>w_new = w_old + yx</code><br>
+            <code>b_new = b_old + y</code>
+        </li>
+    </ul>
+
+    <h3>4.2 Linear Models (Regression & Classification)</h3>
+    <ul>
+        <li>
+            <strong>Objective Function:</strong>
+            <br>
+            <code>min_{w, b} L(w, b) = Σ l(w, b; x_n, y_n) + λR(w, b)</code>
+        </li>
+        <li>
+            <strong>Squared Loss:</strong>
+            <br>
+            <code>l(y, ŷ) = (y - ŷ)^2</code>
+        </li>
+        <li>
+            <strong>Gradient Descent Update:</strong>
+            <br>
+            <code>w^(k) ← w^(k-1) - η^(k)g^(k)</code>
+        </li>
+        <li>
+            <strong>Linear Regression Update:</strong>
+            <br>
+            <code>w ← w + η * δ * x_n</code>, where <code>δ = Y(x_n) - ŷ(x_n)</code>
+        </li>
+        <li>
+            <strong>Logistic Regression (Sigmoid):</strong>
+            <br>
+            <code>σ(x) = 1 / (1 + e^{-x})</code>
+            <br>
+            <code>P(ŷ(x)|x) = 1 / (1 + e^{-wᵗx})</code>
+        </li>
+    </ul>
+
+    <h3>4.3 Decision Trees</h3>
+    <ul>
+        <li>
+            <strong>Gini Index:</strong>
+            <br>
+            <code>G = 1 - Σ (p_k)^2</code>
+            <br>
+            <em>Example:</em> For class proportions 7/7 and 0/7:<br>
+            <code>G = 1 - (1^2 + 0^2) = 0</code>
+        </li>
+    </ul>
+
+    <h3>4.4 Neural Networks</h3>
+    <ul>
+        <li>
+            <strong>MLP Output:</strong>
+            <br>
+            <code>ŷ = Σ v_i tanh(w_i ⋅ x) = v ⋅ tanh(W ⋅ x)</code>
+        </li>
+        <li>
+            <strong>Training Objective (Squared Error):</strong>
+            <br>
+            <code>min_{W, v} L(W, v) = Σ ½ (y_n - Σ v_i f(w_i ⋅ x_n))^2</code>
+        </li>
+    </ul>
+
+    <hr>
+    <p>For more details, see the <a href="file:///home/tor/Documents/My Vault/F20DL NotebookLM Formula Sheet.md">full formula sheet</a>.</p>
+</body>
+</html>
