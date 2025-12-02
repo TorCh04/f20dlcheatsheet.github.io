@@ -160,13 +160,37 @@
 
     <h3>2. Key Metrics and Formulas</h3>
     <ul>
-        <li><strong>Accuracy:</strong> (TP + TN) / (TP + TN + FP + FN)</li>
-        <li><strong>Error Rate:</strong> (FP + FN) / (TP + TN + FP + FN) = 1 - Accuracy</li>
-        <li><strong>Recall (Sensitivity):</strong> TP / (TP + FN)</li>
-        <li><strong>Precision:</strong> TP / (TP + FP)</li>
-        <li><strong>Specificity:</strong> TN / (TN + FP)</li>
-        <li><strong>F-measure:</strong> 2 × (Recall × Precision) / (Recall + Precision)</li>
-    </ul>
+  <li>
+    <strong>Accuracy:</strong> (TP + TN) / (TP + TN + FP + FN)
+    <br>
+    <em>"All correct over all cases"</em>
+  </li>
+  <li>
+    <strong>Error Rate:</strong> (FP + FN) / (TP + TN + FP + FN) = 1 - Accuracy
+    <br>
+    <em>"All wrong over all cases"</em>
+  </li>
+  <li>
+    <strong>Recall (Sensitivity):</strong> TP / (TP + FN)
+    <br>
+    <em>"Of all actual positives, how many did we catch?"</em>
+  </li>
+  <li>
+    <strong>Precision:</strong> TP / (TP + FP)
+    <br>
+    <em>"Of all predicted positives, how many were correct?"</em>
+  </li>
+  <li>
+    <strong>Specificity:</strong> TN / (TN + FP)
+    <br>
+    <em>"Of all actual negatives, how many did we correctly identify?"</em>
+  </li>
+  <li>
+    <strong>F-measure:</strong> 2 × (Recall × Precision) / (Recall + Precision)
+    <br>
+    <em>"Harmonic mean of Precision and Recall"</em>
+  </li>
+</ul>
     <ul>
         <li><em>Example:</em> If TP=35, FP=10, FN=5, TN=50:<br>
             Accuracy = (35+50)/100 = 85%<br>
@@ -208,5 +232,100 @@
     <ul>
         <li><em>Example:</em> Predicting California housing prices using median income, population, etc. (see <a href="https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset">California Housing Dataset</a>).</li>
     </ul>
+
+    <h2>9. Attribute (Feature) Selection</h2>
+  <h3>9.1 What & Why</h3>
+  <ul>
+    <li><b>Feature selection</b> is the process of choosing a subset of relevant attributes (features) for use in model construction.</li>
+    <li>Motivation:
+      <ul>
+        <li>Datasets often have thousands of features (e.g., gene expression, satellite data).</li>
+        <li>Too many features can add noise, increase computation, and reduce accuracy due to overfitting or spurious correlations.</li>
+        <li>Goal: Remove redundant, irrelevant, or weakly relevant features.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>9.2 Measuring Feature Relevance: Correlation Example</h3>
+  <ul>
+    <li><b>Pearson's correlation coefficient (r)</b> measures linear relationship between two variables.</li>
+    <li>Interpretation:
+      <ul>
+        <li>|r| &ge; 0.9: strong correlation</li>
+        <li>|r| &ge; 0.65: moderate correlation</li>
+        <li>|r| &ge; 0.2: weak correlation</li>
+      </ul>
+    </li>
+    <li><b>Example:</b> In a dataset predicting crime rate:
+      <ul>
+        <li><b>PctIlleg</b> (percentage of kids born to never married): r = +0.74</li>
+        <li><b>PctKids2Par</b> (percentage of kids in two-parent families): r = -0.74</li>
+        <li><b>PctFam2Par</b> (percentage of families with two parents): r = -0.71</li>
+      </ul>
+    </li>
+    <li><b>Potential Pitfall:</b> Top correlating features may be redundant (highly correlated with each other). Prefer features that correlate with the target but not with each other.</li>
+  </ul>
+
+  <h3>9.3 Feature Selection Methods</h3>
+  <ul>
+    <li><b>Filter Methods:</b>
+      <ul>
+        <li>Rank features using statistical measures (e.g., correlation, information gain).</li>
+        <li>Fast, but may ignore feature interactions.</li>
+        <li><b>Example:</b> Select top 10 features by correlation with target, then train model on those.</li>
+      </ul>
+    </li>
+    <li><b>Wrapper Methods:</b>
+      <ul>
+        <li>Iteratively select feature subsets, train model, and evaluate performance.</li>
+        <li>Can use <b>forward selection</b> (start empty, add features) or <b>backward elimination</b> (start full, remove features).</li>
+        <li>More accurate, but computationally expensive.</li>
+        <li><b>Example:</b> Start with no features, add one at a time, each time choosing the feature that most improves validation accuracy, until no improvement.</li>
+      </ul>
+    </li>
+    <li><b>Complete Methods:</b>
+      <ul>
+        <li>Try all possible subsets of features (combinatorial explosion for large datasets).</li>
+      </ul>
+    </li>
+    <li><b>Stochastic Methods:</b>
+      <ul>
+        <li>Use randomised search (e.g., genetic algorithms, simulated annealing) to efficiently explore feature subsets.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>9.4 Worked Example: Forward Selection (Wrapper Method)</h3>
+  <ol>
+    <li>Start with no features.</li>
+    <li>For each feature, train a model using just that feature. Select the one with highest validation accuracy.</li>
+    <li>Add that feature to the set. For each remaining feature, train a model using the current set plus that feature. Add the one that improves accuracy most.</li>
+    <li>Repeat until adding features does not improve accuracy.</li>
+  </ol>
+  <p><b>Python-style pseudocode:</b></p>
+  <pre><code class="language-python">
+selected = []
+remaining = all_features.copy()
+best_score = 0
+while remaining:
+    scores = []
+    for f in remaining:
+        score = evaluate_model(selected + [f])
+        scores.append((score, f))
+    score, f_best = max(scores)
+    if score > best_score:
+        selected.append(f_best)
+        remaining.remove(f_best)
+        best_score = score
+    else:
+        break
+  </code></pre>
+
+  <h3>9.5 Takeaways</h3>
+  <ul>
+    <li>Too many features can hurt model performance, even if all are relevant.</li>
+    <li>Feature selection is challenging; different methods suit different problems.</li>
+    <li>Always validate feature selection using cross-validation to avoid overfitting.</li>
+  </ul>
 </body>
 </html>
