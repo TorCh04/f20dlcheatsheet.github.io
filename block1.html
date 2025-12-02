@@ -7,15 +7,21 @@
 </head>
 <body>
     <h1>Data Mining & Machine Learning - Exam Revision</h1>
-<div class="top-actions">
+    <div class="top-actions">
         <a class="home-btn" href="index.html" aria-label="Go to home">Home</a>
     </div>
     <h2>I. Data Anatomy and Attribute Types</h2>
     <h3>1. Dataset Structure</h3>
     <ul>
-        <li><strong>Instances (Records):</strong> Single independent examples.</li>
-        <li><strong>Attributes (Features):</strong> Describe each instance.</li>
-        <li><strong>Class (Target Attribute):</strong> Attribute to predict.</li>
+        <li><strong>Instances (Records):</strong> Single independent examples. <br>
+            <em>Example:</em> In the <a href="https://archive.ics.uci.edu/ml/datasets/Computer+Hardware">CPU Performance Dataset</a>, each line is a computer system with its specs.
+        </li>
+        <li><strong>Attributes (Features):</strong> Describe each instance.<br>
+            <em>Example:</em> <code>MMAX</code> (max memory), <code>vendor</code>, <code>PRP</code> (performance).
+        </li>
+        <li><strong>Class (Target Attribute):</strong> Attribute to predict.<br>
+            <em>Example:</em> Predicting <code>PRP</code> (published relative performance) from other specs.
+        </li>
     </ul>
 
     <h3>2. Attribute Value Types</h3>
@@ -30,19 +36,19 @@
             <td><strong>Nominal</strong> (Categorical)</td>
             <td>Distinct labels, no order or distance</td>
             <td>Equality tests</td>
-            <td>Marital Status, Car Type</td>
+            <td>City: London, Edinburgh<br>Colour: red, green</td>
         </tr>
         <tr>
             <td><strong>Ordinal</strong></td>
             <td>Ordered, no defined distance</td>
             <td>Ordering, comparison</td>
-            <td>Service Rating, Grades</td>
+            <td>Temperature: hot &gt; mild &gt; cool<br>Grades: A &gt; B &gt; C</td>
         </tr>
         <tr>
             <td><strong>Interval</strong></td>
             <td>Ordered, equal units, no true zero</td>
             <td>Difference</td>
-            <td>Temperature (F), Year</td>
+            <td>Temperature (°F), Year</td>
         </tr>
         <tr>
             <td><strong>Ratio</strong></td>
@@ -51,49 +57,80 @@
             <td>Distance, Height, Age</td>
         </tr>
     </table>
+    <p><em>Tip:</em> Some algorithms (e.g., decision trees) require categorical data; others (e.g., neural networks) require numeric.</p>
+
+    <h3>Example: Iris Dataset</h3>
+    <ul>
+        <li>Attributes: sepal length, sepal width, petal length, petal width (all ratio type)</li>
+        <li>Class: Iris Setosa, Iris Versicolour, Iris Virginica</li>
+    </ul>
 
     <h2>II. Data Preparation, Scaling, and Discretisation</h2>
     <h3>1. Data Quality and Missing Values</h3>
     <ul>
         <li>Data can be messy, incomplete, or incorrect.</li>
-        <li><strong>Missing Values (NULL):</strong> May mean refusal, lack, or error.</li>
+        <li><strong>Missing Values (NULL):</strong> May mean refusal, lack, or error.<br>
+            <em>Example:</em> A missing phone number could mean no phone, refused to answer, or data entry error.
+        </li>
+        <li>Handle missing values by:
+            <ul>
+                <li>Removing records/attributes</li>
+                <li>Filling with mean/median/mode</li>
+                <li>Using imputation tools (e.g., <code>sklearn.impute.SimpleImputer</code>)</li>
+            </ul>
+        </li>
     </ul>
 
     <h3>2. Scaling and Normalisation</h3>
     <ul>
-        <li><strong>Instance Normalisation:</strong> Normalize each row by total (e.g., word count).</li>
+        <li><strong>Instance Normalisation:</strong> Normalize each row by total (e.g., word count).<br>
+            <em>Example:</em> For text data, divide each word count by total words in the document to get proportions.
+        </li>
         <li><strong>Attribute Min-Max Normalisation:</strong> Scale values to [0,1] or [-1,1].<br>
-            Formula: <code>(v(r, j) - min(j)) / (max(j) - min(j))</code>
+            Formula: <code>(v(r, j) - min(j)) / (max(j) - min(j))</code><br>
+            <em>Example:</em> If ages range from 18 to 60, age 30 becomes (30-18)/(60-18) = 0.286.
         </li>
         <li><strong>Attribute Standardisation (z-score):</strong> Mean 0, std dev 1.<br>
-            Formula: <code>z = (x - μ) / σ</code>
+            Formula: <code>z = (x - μ) / σ</code><br>
+            <em>Example:</em> If mean income is $50k, std dev $10k, then $60k → (60-50)/10 = 1.0$.
         </li>
     </ul>
 
     <h3>3. Discretisation (Binning)</h3>
     <ul>
         <li>Converts numeric to categorical attributes.</li>
-        <li><strong>Equal Width Binning (EWB):</strong> Bins have equal width.</li>
-        <li><strong>Equal Frequency Binning (EFB):</strong> Bins have equal number of data points.</li>
+        <li><strong>Equal Width Binning (EWB):</strong> Bins have equal width.<br>
+            <em>Example:</em> Ages 0-100, EWB(5): bins are 0-20, 21-40, etc.
+        </li>
+        <li><strong>Equal Frequency Binning (EFB):</strong> Bins have equal number of data points.<br>
+            <em>Example:</em> 100 ages, EFB(4): 25 youngest in bin 1, next 25 in bin 2, etc.
+        </li>
+        <li>Other methods: clustering-based, supervised (use class info).</li>
     </ul>
 
     <h2>III. Model Testing and Evaluation Setup</h2>
     <h3>1. Overfitting and Error Types</h3>
     <ul>
         <li><strong>Re-substitution Error:</strong> Error on training data (overly optimistic).</li>
-        <li><strong>Overfitting:</strong> Model fits training data too well, poor generalisation.</li>
+        <li><strong>Overfitting:</strong> Model fits training data too well, poor generalisation.<br>
+            <em>Example:</em> 1-NN classifier has zero error on training data but may perform poorly on new data.
+        </li>
         <li><strong>Test Set:</strong> Must be independent from training data.</li>
     </ul>
 
     <h3>2. Data Splitting Methods</h3>
     <ul>
-        <li><strong>Holdout Method:</strong> Split into training (2/3) and test (1/3) sets.</li>
-        <li><strong>Validation Data:</strong> For parameter tuning; split into training, validation, and test sets.</li>
+        <li><strong>Holdout Method:</strong> Split into training (2/3) and test (1/3) sets.<br>
+            <em>Example:</em> Use <code>sklearn.model_selection.train_test_split()</code> in Python.
+        </li>
+        <li><strong>Validation Data:</strong> For parameter tuning; split into training, validation, and test sets.<br>
+            <em>Example:</em> Tune <code>k</code> in k-NN using validation set.
+        </li>
         <li><strong>K-fold Cross-Validation:</strong> Data split into k folds; each fold used as test once.<br>
             <ul>
                 <li><strong>Stratification:</strong> Preserves class proportions.</li>
                 <li><strong>Stratified 10-fold CV:</strong> Standard method.</li>
-                <li><strong>Leave-one-out CV:</strong> Special case for small datasets.</li>
+                <li><strong>Leave-one-out CV:</strong> Special case for small datasets (each test set has 1 instance).</li>
             </ul>
         </li>
     </ul>
@@ -117,6 +154,9 @@
             <td>True Negative (TN)</td>
         </tr>
     </table>
+    <ul>
+        <li><em>Example:</em> Out of 100 patients, 40 have disease. Model predicts 35 correctly (TP), misses 5 (FN), wrongly predicts 10 healthy as sick (FP), and 50 correctly as healthy (TN).</li>
+    </ul>
 
     <h3>2. Key Metrics and Formulas</h3>
     <ul>
@@ -127,11 +167,46 @@
         <li><strong>Specificity:</strong> TN / (TN + FP)</li>
         <li><strong>F-measure:</strong> 2 × (Recall × Precision) / (Recall + Precision)</li>
     </ul>
+    <ul>
+        <li><em>Example:</em> If TP=35, FP=10, FN=5, TN=50:<br>
+            Accuracy = (35+50)/100 = 85%<br>
+            Recall = 35/(35+5) = 87.5%<br>
+            Precision = 35/(35+10) = 77.8%<br>
+            F1 = 2*(0.875*0.778)/(0.875+0.778) ≈ 0.823
+        </li>
+    </ul>
 
     <h3>3. Graphical Evaluation</h3>
     <ul>
         <li><strong>ROC Curve:</strong> Plots True Positive Rate vs. False Positive Rate.</li>
         <li><strong>Area Under ROC Curve (AUC):</strong> Probability that a random positive is ranked above a random negative. Higher is better.</li>
+    </ul>
+
+    <h2>V. Feature Selection & Correlation</h2>
+    <ul>
+        <li><strong>Feature Selection:</strong> Remove irrelevant/redundant features to improve model performance.<br>
+            <em>Example:</em> In gene expression data with 10,000 features, select the 1,000 most informative.
+        </li>
+        <li><strong>Correlation (Pearson's r):</strong> Measures linear relationship between two numeric features.<br>
+            <em>Example:</em> r ≈ 1: strong positive, r ≈ 0: no correlation, r ≈ -1: strong negative.
+        </li>
+        <li><strong>Filter Methods:</strong> Select features based on statistical tests (e.g., correlation, information gain).</li>
+        <li><strong>Wrapper Methods:</strong> Use model performance to evaluate feature subsets.</li>
+    </ul>
+
+    <h2>VI. Typical ML Project Workflow</h2>
+    <ol>
+        <li>Frame the problem and look at the big picture.</li>
+        <li>Get the data (e.g., from UCI, Kaggle, etc.).</li>
+        <li>Explore and visualize the data.</li>
+        <li>Prepare the data (cleaning, scaling, feature engineering).</li>
+        <li>Select and train models.</li>
+        <li>Fine-tune models (hyperparameters, feature selection).</li>
+        <li>Present your solution.</li>
+        <li>Launch, monitor, and maintain the system.</li>
+    </ol>
+    <ul>
+        <li><em>Example:</em> Predicting California housing prices using median income, population, etc. (see <a href="https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset">California Housing Dataset</a>).</li>
     </ul>
 </body>
 </html>
