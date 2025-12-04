@@ -1,196 +1,529 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Mining and Machine Learning - Exam Revision</title>
+    <title>Machine Learning & Data Mining: Exam Revision Guide</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Data Mining and Machine Learning - Exam Revision</h1>
-    <div class="top-actions">
-        <a class="home-btn" href="index.html" aria-label="Go to home">Home</a>
-    </div>
-    <h2>1. Data Handling, Preparation, and Evaluation</h2>
-    <h3>1.1 Data Normalisation and Scaling</h3>
-    <ul>
-        <li>
-            <strong>Min-Max Normalisation:</strong>
-            <br>
-            <code>scaled = (v(r, j) - min(j)) / (max(j) - min(j))</code>
-            <br>
-            <em>Example:</em> Height: min=1502, max=1904, value=1856<br>
-            <code>(1856 - 1502) / (1904 - 1502) = 354 / 402 ≈ 0.88</code>
-        </li>
-        <li>
-            <strong>Standardisation (z-score):</strong>
-            <br>
-            <code>z = (x - μ) / σ</code>
-        </li>
-    </ul>
+    <h1>Machine Learning & Data Mining: Exam Revision Guide</h1>
+    <p>This page summarizes the most important formulas and concepts in machine learning and data mining, with simple explanations and examples. Use this as a quick reference for your exam revision!</p>
 
-    <h3>1.2 Performance Measures (Confusion Matrix)</h3>
-    <ul>
-        <li>
-            <strong>Accuracy:</strong>
-            <br>
-            <code>(TP + TN) / (TP + TN + FP + FN)</code>
-        </li>
-        <li>
-            <strong>Error Rate:</strong>
-            <br>
-            <code>(FP + FN) / (TP + TN + FP + FN)</code> or <code>1 - Accuracy</code>
-        </li>
-        <li>
-            <strong>Recall (Sensitivity):</strong>
-            <br>
-            <code>TP / (TP + FN)</code>
-            <br>
-            <em>Example:</em> TP=1, FN=99 → <code>1 / (1 + 99) = 0.01</code>
-        </li>
-        <li>
-            <strong>Precision:</strong>
-            <br>
-            <code>TP / (TP + FP)</code>
-            <br>
-            <em>Example:</em> TP=1, FP=0 → <code>1 / (1 + 0) = 1</code>
-        </li>
-        <li>
-            <strong>F-measure:</strong>
-            <br>
-            <code>2 * (recall * precision) / (recall + precision)</code>
-        </li>
-    </ul>
+    <h2>1. Evaluation Measures</h2>
+<p>
+    These metrics help you judge how well your model is performing, using the confusion matrix values: True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN).
+</p>
 
-    <h2>2. Probabilities and Bayesian Learning</h2>
-    <ul>
-        <li>
-            <strong>Conditional Probability:</strong>
-            <br>
-            <code>P(a|b) = P(a ∧ b) / P(b)</code>
-        </li>
-        <li>
-            <strong>Bayes’ Rule:</strong>
-            <br>
-            <code>P(a|b) = (P(b|a) * P(a)) / P(b)</code>
-            <br>
-            <em>Example:</em>
-            <ul>
-                <li>P(A) = 0.4</li>
-                <li>P(B|A) = 0.5</li>
-                <li>P(B) = 0.6</li>
-                <li>P(A|B) = (0.5 * 0.4) / 0.6 ≈ 0.33</li>
+<ul>
+    <!-- Confusion Matrix Basics -->
+    <li style="margin-bottom: 24px;">
+        <b>Confusion Matrix Basics:</b>
+        <div style="margin-left: 16px;">
+            <p>
+                These four terms are the foundation of most evaluation metrics in machine learning. They come from the <b>confusion matrix</b>, which shows how your model's predictions compare to the actual outcomes.
+            </p>
+            <ul style="margin-bottom: 16px;">
+                <li style="margin-bottom: 8px;">
+                    <b>True Positive (TP):</b> The model correctly predicts the positive class.<br>
+                    <i>Example:</i> Predicts "disease" for someone who actually has the disease.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <b>True Negative (TN):</b> The model correctly predicts the negative class.<br>
+                    <i>Example:</i> Predicts "no disease" for someone who does not have the disease.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <b>False Positive (FP):</b> The model incorrectly predicts the positive class (a "false alarm").<br>
+                    <i>Example:</i> Predicts "disease" for someone who does not have the disease.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <b>False Negative (FN):</b> The model incorrectly predicts the negative class (a "miss").<br>
+                    <i>Example:</i> Predicts "no disease" for someone who actually has the disease.
+                </li>
             </ul>
-        </li>
-    </ul>
 
-    <h2>3. Unsupervised Learning (K-Means)</h2>
-    <ul>
-        <li>
-            <strong>Euclidean Distance:</strong>
-            <br>
-            <code>d(a, b) = sqrt(Σ (a_d - b_d)^2)</code>
-        </li>
-        <li>
-            <strong>K-Means Cost Function:</strong>
-            <br>
-            <code>L(z, μ, D) = Σₙ Σₖ z_nk |x_n - μ_k|^2</code>
-        </li>
-        <li>
-            <strong>M-step (Centroid Update):</strong>
-            <br>
-            <code>μ_k = (Σₙ z_nk x_n) / (Σₙ z_nk)</code>
-            <br>
-            <em>Example:</em> Feature values: 0.7, 2.4, 3, 4.5, 5.2, 5.3, 6.2, 9.5<br>
-            <code>μ = (0.7 + 2.4 + 3 + 4.5 + 5.2 + 5.3 + 6.2 + 9.5) / 8 = 4.6</code>
-        </li>
-        <li>
-            <strong>E-step (Assignment):</strong>
-            <br>
-            <code>z_n ← argmin_k |μ_k - x_n|</code>
-            <br>
-            <em>Example:</em> Compare squared distances to centroids, assign to closest.
-        </li>
-    </ul>
+            <div style="margin-bottom: 16px;">
+                <b>Worked Example:</b><br>
+                Suppose you test 10 people for a disease. Here’s how the results might look:
+            </div>
+            <table border="1" cellpadding="6" cellspacing="0" style="margin-bottom: 16px;">
+                <tr>
+                    <th>Person</th><th>Actual Condition</th><th>Model Prediction</th><th>Result</th>
+                </tr>
+                <tr><td>1</td><td>Disease</td><td>Disease</td><td>TP</td></tr>
+                <tr><td>2</td><td>Disease</td><td>Disease</td><td>TP</td></tr>
+                <tr><td>3</td><td>Disease</td><td>No Disease</td><td>FN</td></tr>
+                <tr><td>4</td><td>No Disease</td><td>Disease</td><td>FP</td></tr>
+                <tr><td>5</td><td>No Disease</td><td>No Disease</td><td>TN</td></tr>
+                <tr><td>6</td><td>No Disease</td><td>No Disease</td><td>TN</td></tr>
+                <tr><td>7</td><td>Disease</td><td>No Disease</td><td>FN</td></tr>
+                <tr><td>8</td><td>No Disease</td><td>Disease</td><td>FP</td></tr>
+                <tr><td>9</td><td>No Disease</td><td>No Disease</td><td>TN</td></tr>
+                <tr><td>10</td><td>Disease</td><td>Disease</td><td>TP</td></tr>
+            </table>
 
-    <h2>4. Supervised Learning</h2>
-    <h3>4.1 Perceptron</h3>
-    <ul>
-        <li>
-            <strong>Activation:</strong>
-            <br>
-            <code>a = Σ w_d x_d + b</code>
-        </li>
-        <li>
-            <strong>Prediction:</strong>
-            <br>
-            <code>ŷ = sign(wᵗx + b)</code>
-        </li>
-        <li>
-            <strong>Update Rule:</strong>
-            <br>
-            <code>w_new = w_old + yx</code><br>
-            <code>b_new = b_old + y</code>
-        </li>
-    </ul>
+            <div style="margin-bottom: 8px;">
+                <b>Counts:</b> TP = 3, TN = 3, FP = 2, FN = 2
+            </div>
 
-    <h3>4.2 Linear Models (Regression & Classification)</h3>
-    <ul>
-        <li>
-            <strong>Objective Function:</strong>
-            <br>
-            <code>min_{w, b} L(w, b) = Σ l(w, b; x_n, y_n) + λR(w, b)</code>
-        </li>
-        <li>
-            <strong>Squared Loss:</strong>
-            <br>
-            <code>l(y, ŷ) = (y - ŷ)^2</code>
-        </li>
-        <li>
-            <strong>Gradient Descent Update:</strong>
-            <br>
-            <code>w^(k) ← w^(k-1) - η^(k)g^(k)</code>
-        </li>
-        <li>
-            <strong>Linear Regression Update:</strong>
-            <br>
-            <code>w ← w + η * δ * x_n</code>, where <code>δ = Y(x_n) - ŷ(x_n)</code>
-        </li>
-        <li>
-            <strong>Logistic Regression (Sigmoid):</strong>
-            <br>
-            <code>σ(x) = 1 / (1 + e^{-x})</code>
-            <br>
-            <code>P(ŷ(x)|x) = 1 / (1 + e^{-wᵗx})</code>
-        </li>
-    </ul>
+            <div style="margin-bottom: 8px;">
+                <b>Summary Table:</b>
+            </div>
+            <table border="1" cellpadding="6" cellspacing="0" style="margin-bottom: 8px;">
+                <tr>
+                    <th></th><th>Predicted Positive</th><th>Predicted Negative</th>
+                </tr>
+                <tr>
+                    <th>Actual Positive</th><td>TP</td><td>FN</td>
+                </tr>
+                <tr>
+                    <th>Actual Negative</th><td>FP</td><td>TN</td>
+                </tr>
+            </table>
 
-    <h3>4.3 Decision Trees</h3>
-    <ul>
-        <li>
-            <strong>Gini Index:</strong>
-            <br>
-            <code>G = 1 - Σ (p_k)^2</code>
-            <br>
-            <em>Example:</em> For class proportions 7/7 and 0/7:<br>
-            <code>G = 1 - (1^2 + 0^2) = 0</code>
-        </li>
-    </ul>
+            <p>
+                These values are the building blocks for all the evaluation metrics (like accuracy, precision, recall) you see in machine learning.
+            </p>
+        </div>
+    </li>
 
-    <h3>4.4 Neural Networks</h3>
-    <ul>
-        <li>
-            <strong>MLP Output:</strong>
-            <br>
-            <code>ŷ = Σ v_i tanh(w_i ⋅ x) = v ⋅ tanh(W ⋅ x)</code>
-        </li>
-        <li>
-            <strong>Training Objective (Squared Error):</strong>
-            <br>
-            <code>min_{W, v} L(W, v) = Σ ½ (y_n - Σ v_i f(w_i ⋅ x_n))^2</code>
-        </li>
-    </ul>
+    <!-- Accuracy -->
+    <li style="margin-bottom: 24px;">
+        <b>Accuracy (Success Rate):</b> <br>
+        <code>(TP + TN) / (TP + TN + FP + FN)</code>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Accuracy tells you the proportion of all predictions your model got right, whether positive or negative. It's a general measure of correctness, but can be misleading if your data is imbalanced (e.g., lots more negatives than positives).
+            <br><br>
+            <b>Example:</b> If 9 out of 14 predictions are correct, accuracy = 9/14 ≈ 64.2%.
+        </div>
+    </li>
 
-    <hr>
-    <p>For more details, see the <a href="file:///home/tor/Documents/My Vault/F20DL NotebookLM Formula Sheet.md">full formula sheet</a>.</p>
+    <!-- Precision -->
+    <li style="margin-bottom: 24px;">
+        <b>Precision:</b> <br>
+        <code>TP / (TP + FP)</code>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Precision focuses only on the cases your model predicted as positive. It tells you, "Of all the times I said YES, how often was I right?" High precision means few false alarms.
+            <br><br>
+            <b>Example:</b> If 1 positive prediction is correct and 0 are wrong, precision = 1/1 = 100%.
+        </div>
+    </li>
+
+    <!-- Recall -->
+    <li style="margin-bottom: 24px;">
+        <b>Recall (Sensitivity):</b> <br>
+        <code>TP / (TP + FN)</code>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Recall measures how good your model is at finding all the actual positives. It answers, "Of all the real YES cases, how many did I catch?" High recall means few misses.
+            <br><br>
+            <b>Example:</b> If 1 out of 100 positives is found, recall = 1/100 = 1%.
+        </div>
+    </li>
+
+    <!-- F-measure -->
+    <li style="margin-bottom: 24px;">
+        <b>F-measure (F-score):</b> <br>
+        <code>2 * (precision * recall) / (precision + recall)</code>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> The F-score balances precision and recall into a single number. It's useful when you want a trade-off between catching positives and avoiding false alarms.
+        </div>
+    </li>
+
+    <!-- Specificity -->
+    <li style="margin-bottom: 24px;">
+        <b>Specificity:</b> <br>
+        <code>TN / (TN + FP)</code>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Specificity tells you how well your model identifies actual negatives. It answers, "Of all the real NO cases, how many did I correctly say NO to?" High specificity means few false positives.
+        </div>
+    </li>
+</ul>
+
+<p>
+    For more details and formulas, see the full notes: 
+    <a href="file:///home/tor/Documents/My Vault/F20DL NotebookLM Formuals.md">F20DL NotebookLM Formulas</a>
+</p>
+
+    <h2>2. Probability and Bayesian Learning</h2>
+<ul>
+    <!-- Conditional Probability -->
+    <li style="margin-bottom: 24px;">
+        <b>Conditional Probability:</b> <br>
+        <code>P(a|b) = P(a and b) / P(b)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> This formula calculates the chance of event 'a' happening, given that 'b' has already happened. It's the foundation for reasoning under uncertainty.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have a deck of 52 cards. Let:<br>
+            - Event <b>a</b>: Drawing a King<br>
+            - Event <b>b</b>: Drawing a red card<br>
+            There are 2 red Kings (hearts and diamonds), and 26 red cards in total.<br>
+            <b>P(a and b)</b> = Probability of drawing a red King = 2/52<br>
+            <b>P(b)</b> = Probability of drawing a red card = 26/52<br>
+            So,<br>
+            <b>P(a|b) = (2/52) / (26/52) = 2/26 ≈ 0.077</b><br>
+            <i>This means: If you know the card is red, there's about a 7.7% chance it's a King.</i>
+        </div>
+    </li>
+
+    <!-- Bayes' Rule -->
+    <li style="margin-bottom: 24px;">
+        <b>Bayes' Rule:</b> <br>
+        <code>P(a|b) = [P(b|a) * P(a)] / P(b)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Bayes' Rule lets you update your belief about 'a' after seeing evidence 'b'. It's the core of Bayesian learning and helps you revise probabilities as you get new data.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose 1% of people have a certain disease (<b>P(Disease) = 0.01</b>). A test is 99% accurate:<br>
+            - If you have the disease, the test is positive 99% of the time (<b>P(Pos|Disease) = 0.99</b>)<br>
+            - If you don't have the disease, the test is positive 5% of the time (<b>P(Pos|No Disease) = 0.05</b>)<br>
+            What is the chance you actually have the disease if you test positive (<b>P(Disease|Pos)</b>)?<br>
+            <b>P(Pos)</b> = P(Pos|Disease) × P(Disease) + P(Pos|No Disease) × P(No Disease)<br>
+            = 0.99 × 0.01 + 0.05 × 0.99 = 0.0099 + 0.0495 = 0.0594<br>
+            Now apply Bayes' Rule:<br>
+            <b>P(Disease|Pos) = (0.99 × 0.01) / 0.0594 ≈ 0.167</b><br>
+            <i>This means: Even if you test positive, there's only about a 16.7% chance you actually have the disease (because the disease is rare).</i>
+        </div>
+    </li>
+</ul>
+
+
+
+    <h2>3. Data Preparation and Scaling</h2>
+<ul>
+    <!-- Min-Max Normalisation -->
+    <li style="margin-bottom: 24px;">
+        <b>Min-Max Normalisation:</b> <br>
+        <code>(value - min) / (max - min)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> This formula rescales your data so that all values fit between 0 and 1. It's important when features have different units or scales, so no single feature dominates.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have three heights in mm: <b>1502, 1700, 1856</b>.<br>
+            - <b>min = 1502</b>, <b>max = 1904</b><br>
+            To normalise 1856 mm:<br>
+            (1856 - 1502) / (1904 - 1502) = 354 / 402 ≈ <b>0.88</b><br>
+            <i>This means 1856 mm is 88% of the way from the minimum to the maximum height.</i>
+        </div>
+    </li>
+
+    <!-- Standardisation (z-score) -->
+    <li style="margin-bottom: 24px;">
+        <b>Standardisation (z-score):</b> <br>
+        <code>z = (x - mean) / std</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Standardisation transforms your data so it has a mean of 0 and a standard deviation of 1. This helps algorithms that assume data is normally distributed and is less sensitive to outliers.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have three test scores: <b>60, 70, 80</b>.<br>
+            - <b>mean = (60 + 70 + 80) / 3 = 70</b><br>
+            - <b>std = sqrt([(60-70)² + (70-70)² + (80-70)²] / 3) = sqrt([100 + 0 + 100]/3) ≈ 8.16</b><br>
+            To standardise 80:<br>
+            z = (80 - 70) / 8.16 ≈ <b>1.23</b><br>
+            <i>This means 80 is 1.23 standard deviations above the mean score.</i>
+        </div>
+    </li>
+</ul>
+
+
+
+    <h2>4. Objective/Loss Functions for Linear Models</h2>
+<ul>
+    <!-- Squared Loss -->
+    <li style="margin-bottom: 24px;">
+        <b>Squared Loss:</b> <br>
+        <code>(y - ŷ)^2</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Squared loss penalizes predictions that are far from the true value, with bigger errors punished much more. It's the main loss function for linear regression.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose the true value <b>y = 10</b> and your model predicts <b>ŷ = 7</b>.<br>
+            Squared loss = (10 - 7)<sup>2</sup> = 3<sup>2</sup> = <b>9</b><br>
+            <i>This means the model made an error of 3, and the penalty is 9 (error squared).</i>
+        </div>
+    </li>
+
+    <!-- Hinge Loss -->
+    <li style="margin-bottom: 24px;">
+        <b>Hinge Loss:</b> <br>
+        <code>max(0, 1 - y * ŷ)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Hinge loss is used in SVMs. It only penalizes predictions that are wrong or not confident enough, encouraging the model to make predictions with a safe margin.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose the true label <b>y = 1</b> (positive class) and the model's output <b>ŷ = 0.4</b>.<br>
+            Hinge loss = max(0, 1 - 1 × 0.4) = max(0, 0.6) = <b>0.6</b><br>
+            <i>This means the prediction is not confident enough (less than 1), so there is a penalty.</i>
+        </div>
+    </li>
+
+    <!-- Exponential Loss -->
+    <li style="margin-bottom: 24px;">
+        <b>Exponential Loss:</b> <br>
+        <code>exp(-y * ŷ)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Exponential loss punishes wrong predictions very strongly, especially if the model is very confident but wrong. It's used in boosting algorithms.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose the true label <b>y = -1</b> and the model's output <b>ŷ = 0.5</b>.<br>
+            Exponential loss = exp(-(-1) × 0.5) = exp(0.5) ≈ <b>1.65</b><br>
+            <i>This means the penalty increases rapidly as the prediction gets more confidently wrong.</i>
+        </div>
+    </li>
+
+    <!-- Log Loss (Binary Cross-Entropy) -->
+    <li style="margin-bottom: 24px;">
+        <b>Log Loss (Binary Cross-Entropy):</b> <br>
+        <code>- [Y * log(Ŷ) + (1 - Y) * log(1 - Ŷ)]</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Log loss measures how well your predicted probabilities match the actual labels. It's the standard loss for logistic regression and encourages the model to be confident and correct.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose the true label <b>Y = 1</b> (positive class) and the predicted probability <b>Ŷ = 0.8</b>.<br>
+            Log loss = - [1 × log(0.8) + (1 - 1) × log(1 - 0.8)] = -log(0.8) ≈ <b>0.22</b><br>
+            <i>This means the model gets a small penalty for being less than 100% confident, but the penalty would be much higher if Ŷ was close to 0.</i>
+        </div>
+    </li>
+</ul>
+
+
+
+    <h2>5. Gradient Descent and Parameter Updates</h2>
+<ul>
+    <!-- General Gradient Descent Update -->
+    <li style="margin-bottom: 24px;">
+        <b>General Gradient Descent Update:</b> <br>
+        <code>w = w - η * gradient</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> This is the basic rule for updating model weights. You move the weights a little bit in the direction that reduces the loss, as indicated by the gradient.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your current weight is <b>w = 2.0</b>, the gradient (slope) at this point is <b>3.0</b>, and your learning rate <b>η = 0.1</b>.<br>
+            Update step: <b>w = 2.0 - 0.1 × 3.0 = 1.7</b><br>
+            <i>This means you move the weight down the slope to reduce the error.</i>
+        </div>
+    </li>
+
+    <!-- Linear Regression Update -->
+    <li style="margin-bottom: 24px;">
+        <b>Linear Regression Update:</b> <br>
+        <code>w = w + η * error * x</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> For linear regression, you adjust the weights based on how much your prediction missed the true value (the error), scaled by the input and learning rate.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your input <b>x = 2</b>, the true value <b>y = 5</b>, your model predicted <b>ŷ = 3</b>, and your learning rate <b>η = 0.1</b>.<br>
+            Error = y - ŷ = 5 - 3 = <b>2</b><br>
+            Update step: <b>w = w + 0.1 × 2 × 2 = w + 0.4</b><br>
+            <i>This increases the weight to help the model predict closer to the true value next time.</i>
+        </div>
+    </li>
+
+    <!-- Perceptron Update -->
+    <li style="margin-bottom: 24px;">
+        <b>Perceptron Update:</b> <br>
+        <code>w = w + y * x</code> <br>
+        <code>b = b + y</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> In the perceptron algorithm, you only update the weights and bias if the prediction was wrong. The update nudges the model toward the correct answer.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your input <b>x = 1</b>, true label <b>y = 1</b> (should be positive), and your model predicted incorrectly.<br>
+            Update step: <b>w = w + 1 × 1 = w + 1</b>, <b>b = b + 1</b><br>
+            <i>This makes the model more likely to predict positive for similar inputs in the future.</i>
+        </div>
+    </li>
+
+    <!-- Sigmoid Activation -->
+    <li style="margin-bottom: 24px;">
+        <b>Sigmoid Activation (Logistic Regression):</b> <br>
+        <code>σ(x) = 1 / (1 + exp(-x))</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> The sigmoid function squashes any number into a value between 0 and 1, turning raw model outputs into probabilities.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your model's output <b>x = 2</b>.<br>
+            Sigmoid: <b>σ(2) = 1 / (1 + exp(-2)) ≈ 0.88</b><br>
+            <i>This means the model predicts an 88% probability for the positive class.</i>
+        </div>
+    </li>
+</ul>
+
+
+    <h2>6. K-Means Clustering</h2>
+<ul>
+    <li>
+        <b>K-Means Cost Function:</b> <br>
+        <code>Sum of squared distances from each point to its cluster center</code><br>
+        <p>
+            <b>What it does:</b> This cost function measures how close each point is to its assigned cluster center. The algorithm tries to minimize this, making clusters as tight as possible.
+        </p>
+    </li>
+    <li>
+        <b>Assignment Step (E-step):</b> <br>
+        <code>Assign each point to the nearest centroid</code>
+        <p>
+            <b>What it does:</b> In this step, each data point is assigned to the cluster whose center (centroid) is closest to it. This forms the basis for updating the clusters.
+        </p>
+    </li>
+    <li>
+        <b>Centroid Update (M-step):</b> <br>
+        <code>Set each centroid to the mean of its assigned points</code>
+        <p>
+            <b>What it does:</b> After assignment, the centroid of each cluster is recalculated as the average of all points assigned to it. This recenters the clusters.
+        </p>
+    </li>
+    <li>
+        <b>How to Find the Centroid:</b><br>
+        <code>centroid = (sum of all points in cluster) / (number of points in cluster)</code>
+        <p>
+            <b>What it does:</b> For each cluster, add up the coordinates of all points assigned to that cluster, then divide by the number of points. This gives you the new center (mean) of the cluster.
+        </p>
+    </li>
+    <li>
+        <b>Worked Example:</b><br>
+        <p>
+            Suppose you have two clusters and the following points in 2D space:
+        </p>
+        <ul>
+            <li>Cluster A: (2, 3), (4, 5), (3, 7)</li>
+            <li>Cluster B: (10, 8), (12, 10)</li>
+        </ul>
+        <p>
+            <b>Step 1: Find the centroid for Cluster A:</b><br>
+            Add up the x-coordinates: 2 + 4 + 3 = 9<br>
+            Add up the y-coordinates: 3 + 5 + 7 = 15<br>
+            Number of points: 3<br>
+            Centroid A = (9/3, 15/3) = <b>(3, 5)</b>
+        </p>
+        <p>
+            <b>Step 2: Find the centroid for Cluster B:</b><br>
+            Add up the x-coordinates: 10 + 12 = 22<br>
+            Add up the y-coordinates: 8 + 10 = 18<br>
+            Number of points: 2<br>
+            Centroid B = (22/2, 18/2) = <b>(11, 9)</b>
+        </p>
+        <p>
+            <b>Summary:</b> The new centroids are (3, 5) for Cluster A and (11, 9) for Cluster B. In the next iteration, you would reassign each point to the nearest centroid and repeat the process.
+        </p>
+    </li>
+</ul>
+
+    <h2>5. Gradient Descent and Parameter Updates</h2>
+<ul>
+    <!-- General Gradient Descent Update -->
+    <li style="margin-bottom: 24px;">
+        <b>General Gradient Descent Update:</b> <br>
+        <code>w = w - η * gradient</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> This is the basic rule for updating model weights. You move the weights a little bit in the direction that reduces the loss, as indicated by the gradient.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your current weight is <b>w = 2.0</b>, the gradient (slope) at this point is <b>3.0</b>, and your learning rate <b>η = 0.1</b>.<br>
+            Update step: <b>w = 2.0 - 0.1 × 3.0 = 1.7</b><br>
+            <i>This means you move the weight down the slope to reduce the error.</i>
+        </div>
+    </li>
+
+    <!-- Linear Regression Update -->
+    <li style="margin-bottom: 24px;">
+        <b>Linear Regression Update:</b> <br>
+        <code>w = w + η * error * x</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> For linear regression, you adjust the weights based on how much your prediction missed the true value (the error), scaled by the input and learning rate.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your input <b>x = 2</b>, the true value <b>y = 5</b>, your model predicted <b>ŷ = 3</b>, and your learning rate <b>η = 0.1</b>.<br>
+            Error = y - ŷ = 5 - 3 = <b>2</b><br>
+            Update step: <b>w = w + 0.1 × 2 × 2 = w + 0.4</b><br>
+            <i>This increases the weight to help the model predict closer to the true value next time.</i>
+        </div>
+    </li>
+
+    <!-- Perceptron Update -->
+    <li style="margin-bottom: 24px;">
+        <b>Perceptron Update:</b> <br>
+        <code>w = w + y * x</code> <br>
+        <code>b = b + y</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> In the perceptron algorithm, you only update the weights and bias if the prediction was wrong. The update nudges the model toward the correct answer.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your input <b>x = 1</b>, true label <b>y = 1</b> (should be positive), and your model predicted incorrectly.<br>
+            Update step: <b>w = w + 1 × 1 = w + 1</b>, <b>b = b + 1</b><br>
+            <i>This makes the model more likely to predict positive for similar inputs in the future.</i>
+        </div>
+    </li>
+
+    <!-- Sigmoid Activation -->
+    <li style="margin-bottom: 24px;">
+        <b>Sigmoid Activation (Logistic Regression):</b> <br>
+        <code>σ(x) = 1 / (1 + exp(-x))</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> The sigmoid function squashes any number into a value between 0 and 1, turning raw model outputs into probabilities.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose your model's output <b>x = 2</b>.<br>
+            Sigmoid: <b>σ(2) = 1 / (1 + exp(-2)) ≈ 0.88</b><br>
+            <i>This means the model predicts an 88% probability for the positive class.</i>
+        </div>
+    </li>
+</ul>
+
+<h2>7. Attribute Selection</h2>
+<ul>
+    <!-- Pearson's Correlation Coefficient -->
+    <li style="margin-bottom: 24px;">
+        <b>Pearson's Correlation Coefficient:</b> <br>
+        <code>r = (1/(n-1)) * Σ((x - mean_x)/std_x * (y - mean_y)/std_y)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Pearson's r measures how strongly two numeric features are related. A value near 1 means strong positive correlation, -1 means strong negative, and 0 means no linear relationship.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have two features for 3 students: <br>
+            <b>x (hours studied):</b> 2, 4, 6<br>
+            <b>y (test score):</b> 50, 80, 90<br>
+            mean_x = 4, std_x ≈ 2; mean_y = 73.3, std_y ≈ 21<br>
+            For each student, calculate (x - mean_x)/std_x and (y - mean_y)/std_y, multiply them, sum, and divide by (n-1).<br>
+            Result: <b>r ≈ 0.98</b> (very strong positive correlation).
+        </div>
+    </li>
+
+    <!-- Gini Index -->
+    <li style="margin-bottom: 24px;">
+        <b>Gini Index:</b> <br>
+        <code>G = 1 - Σ(p_k^2)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> The Gini Index measures how mixed the classes are in a node (used in decision trees). A lower value means the node is more "pure" (mostly one class).<br><br>
+            <b>Worked Example:</b><br>
+            Suppose a node has 4 "Yes" and 1 "No" examples.<br>
+            p_Yes = 4/5 = 0.8, p_No = 1/5 = 0.2<br>
+            G = 1 - (0.8² + 0.2²) = 1 - (0.64 + 0.04) = 1 - 0.68 = <b>0.32</b><br>
+            <i>This means the node is fairly pure, but not perfectly (which would be 0).</i>
+        </div>
+    </li>
+</ul>
+
+
+
+    <h2>8. Vector Geometry</h2>
+<ul>
+    <!-- Euclidean Distance -->
+    <li style="margin-bottom: 24px;">
+        <b>Euclidean Distance:</b> <br>
+        <code>d(a, b) = sqrt(Σ(a_i - b_i)^2)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> Euclidean distance is the straight-line distance between two points in space. It's used to find nearest neighbors or assign points to clusters.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have two points in 2D space: <b>a = (3, 4)</b> and <b>b = (7, 1)</b>.<br>
+            Calculate the difference for each coordinate:<br>
+            (3 - 7) = -4, (4 - 1) = 3<br>
+            Square each difference: (-4)² = 16, (3)² = 9<br>
+            Add them: 16 + 9 = 25<br>
+            Take the square root: sqrt(25) = <b>5</b><br>
+            <i>This means the straight-line distance between (3, 4) and (7, 1) is 5 units.</i>
+        </div>
+    </li>
+
+    <!-- Dot Product -->
+    <li style="margin-bottom: 24px;">
+        <b>Dot Product:</b> <br>
+        <code>x · y = Σ(x_i * y_i)</code><br>
+        <div style="margin-left: 16px; margin-top: 8px;">
+            <b>What it does:</b> The dot product combines two vectors into a single number. In machine learning, it's used to compute activations in linear models.<br><br>
+            <b>Worked Example:</b><br>
+            Suppose you have two vectors: <b>x = (2, 5, -1)</b> and <b>y = (4, 0, 3)</b>.<br>
+            Multiply each pair of elements: (2×4) = 8, (5×0) = 0, (-1×3) = -3<br>
+            Add them up: 8 + 0 + (-3) = <b>5</b><br>
+            <i>This means the dot product of x and y is 5.</i>
+        </div>
+    </li>
+</ul>
+
+
+
+    
+    
 </body>
 </html>
